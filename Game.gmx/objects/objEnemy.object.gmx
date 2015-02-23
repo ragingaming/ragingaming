@@ -25,13 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>grid = mp_grid_create(0,0,room_width/32,room_height/32,32,32)
-path = path_add()
-
-mp_grid_add_instances(grid,objWall,1)
-
-startx = x
+            <string>startx = x
 starty = y
+
+depth = -x-y
 </string>
           </argument>
         </arguments>
@@ -54,43 +51,48 @@ starty = y
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Testing
-mp_grid_clear_all(grid)
+            <string>//Initialise the grid and path
+grid = mp_grid_create(0,0,room_width/8,room_width/8,8,8)
+path = path_add()
 
-mp_grid_add_instances(grid,objWall,1)
+//Add the wall as an obsticle
+mp_grid_add_instances(path,objWall,1)
 
-//Add enemy instance (same object) - Mark &amp; Luke
+//Add enemies that are the same object as obsticles
 if objEnemy.id != self.id
 {
-    mp_grid_add_instances(grid,objEnemy.id,1)
+    mp_grid_add_instances(path,objEnemy.id,1)
 }
 
-if distance_to_object(objPlayer) &lt; 150 and distance_to_object(objEnemy) &gt; 2 and distance_to_object(objPlayer) &gt; 2
+//Move to player - else return to start position
+if distance_to_object(objPlayer) &lt; 250
 {
-    mp_potential_step(objPlayer.x,objPlayer.y,1,1)
-    mp_grid_path(grid,path,x,y,objPlayer.x,objPlayer.y,true)
-    path_start(path,3,0,0)
+    mp_grid_path(grid,path,x,y,objPlayer.x,objPlayer.y,1)
+    if path_get_length(path) &lt; 250
+    {
+        path_start(path,2,"",0)
+    }
+    else
+    {
+        mp_grid_path(grid,path,x,y,startx,starty,1)
+        path_start(path,2,"",0)
+    }
+}
+else if distance_to_object(objPlayer) &gt; 250
+{
+    mp_grid_path(grid,path,x,y,startx,starty,1)
+    path_start(path,2,"",0)
+}
+
+mp_grid_clear_all(grid)
+//Depth
+if distance_to_object(objDepth) &lt; 6
+{
+    depth = +x+y
 }
 else
 {
-    mp_potential_step(startx,starty,1,1)
-    mp_grid_path(grid,path,x,y,startx,starty,true)
-    path_start(path,3,0,0)
-}
-
-if distance_to_point(startx,starty) &lt; 2 and distance_to_object(objPlayer) &gt; 150
-{
-    speed = 0
-}
-
-if distance_to_object(objPlayer) &lt; 2
-{
-    speed = 0
-}
-
-if distance_to_object(objEnemy) &lt; 2
-{
-    speed = 0
+    depth = -x-y
 }
 </string>
           </argument>

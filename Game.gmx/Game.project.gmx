@@ -15,20 +15,24 @@
     <sprite>sprites\sprPlay</sprite>
     <sprite>sprites\sprWall</sprite>
     <sprite>sprites\sprDepth</sprite>
+    <sprite>sprites\spr</sprite>
+    <sprite>sprites\sprHitMarker</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\objPlayer</object>
     <objects name="Menu">
       <object>objects\objPlayButton</object>
     </objects>
     <objects name="Control">
+      <object>objects\objDepth</object>
       <object>objects\objControl</object>
     </objects>
     <object>objects\objWall</object>
-    <object>objects\objDepth</object>
     <object>objects\objEnemy</object>
+    <objects name="Player">
+      <object>objects\objPlayer</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rooMenu</room>

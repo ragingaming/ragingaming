@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_angle =- 30
+            <string>//Set the view angle to 30 degrees
+view_angle =- 30
 </string>
           </argument>
         </arguments>
