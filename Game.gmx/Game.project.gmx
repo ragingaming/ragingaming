@@ -15,8 +15,6 @@
     <sprite>sprites\sprPlay</sprite>
     <sprite>sprites\sprWall</sprite>
     <sprite>sprites\sprDepth</sprite>
-    <sprite>sprites\spr</sprite>
-    <sprite>sprites\sprHitMarker</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

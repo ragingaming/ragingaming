@@ -25,9 +25,17 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>startx = x
+            <string>/* The following code has been written by Mark Cockburn */
+
+//Initialise the variables at the begining of the game to prevent bugs
+grid = mp_grid_create(x-420,y-420,420,420,8,8)
+path = path_add()
+
+//Create variables for the spawn location so that the object can return to it
+startx = x
 starty = y
 
+//Set the correct depth for isometric
 depth = -x-y
 </string>
           </argument>
@@ -51,15 +59,22 @@ depth = -x-y
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Initialise the grid and path
-grid = mp_grid_create(0,0,room_width/8,room_width/8,8,8)
-path = path_add()
+            <string>/* The following code has been written by Mark Cockburn */
+
+//Initialise the grid and path if the object is moving
+//If the object is not moving then there is no point
+if speed &gt; 0.1
+{
+    grid = mp_grid_create(x-420,y-420,420,420,8,8)
+    path = path_add()
+}
 
 //Add the wall as an obsticle
+//THIS NEEDS TO BE OPTIMISED
 mp_grid_add_instances(path,objWall,1)
 
 //Add enemies that are the same object as obsticles
-if objEnemy.id != self.id
+if objEnemy.id != self.id and distance_to_object(objEnemy) &lt; 16
 {
     mp_grid_add_instances(path,objEnemy.id,1)
 }
@@ -67,24 +82,31 @@ if objEnemy.id != self.id
 //Move to player - else return to start position
 if distance_to_object(objPlayer) &lt; 250
 {
+    //Plan a path towards the player if it is close enough
     mp_grid_path(grid,path,x,y,objPlayer.x,objPlayer.y,1)
     if path_get_length(path) &lt; 250
     {
+        //Start the path towards the player if the path is short enough
         path_start(path,2,"",0)
     }
     else
     {
+        //If the path is too long then return to the start point
         mp_grid_path(grid,path,x,y,startx,starty,1)
         path_start(path,2,"",0)
     }
 }
 else if distance_to_object(objPlayer) &gt; 250
 {
+    //If the player is too far then return to start position
     mp_grid_path(grid,path,x,y,startx,starty,1)
     path_start(path,2,"",0)
 }
 
+//Clear the grid at the end of the step
+//This helps to optimise the game
 mp_grid_clear_all(grid)
+
 //Depth
 if distance_to_object(objDepth) &lt; 6
 {
