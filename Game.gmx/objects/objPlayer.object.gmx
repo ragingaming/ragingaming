@@ -73,13 +73,13 @@ if keyboard_check(ord("D")) and place_free(x+4,y)
 //image_angle = point_direction(objPlayer.x,objPlayer.y,mouse_x,mouse_y)
 
 //Depth - Mark &amp; Luke
-if distance_to_object(objDepth) &lt; 8
+if distance_to_object(objDepth) &lt; 5
 {
-    depth = +x+y
+    depth = -x-y
 }
 else
 {
-    depth = -x-y
+    depth = +x+y
 }
 </string>
           </argument>
