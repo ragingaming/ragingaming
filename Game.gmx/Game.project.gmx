@@ -16,7 +16,9 @@
     <sprite>sprites\sprWall</sprite>
     <sprite>sprites\sprDepth</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\scr_alpha_bck</background>
+  </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
     <objects name="Menu">

@@ -25,8 +25,115 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Set the view angle to 30 degrees
+            <string>//View Related First
+//Set the view angle to 30 degrees
 view_angle =- 30
+
+if instance_exists(objPlayer)    //set the view to the player using code not room commands
+    {
+    view_object[0] = objPlayer;
+    }
+
+//Pause Variable  0 = not paused 1 = paused
+pause = 0;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/*{
+switch (pause)
+    {
+    case 0
+    pause = 1
+    instance_deactivate_all(true)
+    break;
+    case 1
+    instance_activate_all()
+    pause = 0
+    break;
+    }
+}
+
+if (!pause)
+{
+    pause = 1;
+    instance_deactivate_all(true);
+}
+else
+{
+    pause = 0;
+    instance_activate_all();
+}
+*/
+
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (!pause)
+{
+    pause = 1;  //pauses the game by deactivating object expect objcontrol and sets a screenshot as a background so as wall and player appear to stay
+    screen_save("scrsht1.png");
+    instance_deactivate_all(true);
+    scr_pause_bck = background_add("scrsht1.png", false, true);
+    background_visible[0] = false;
+    background_index[1] = scr_pause_bck;
+    background_index[2] = scr_alpha_bck;
+    background_visible[1] = true;
+    background_visible[2] = true;
+    background_alpha[2] = 0.2;  //set an alpha on a black layer to indicate the game is paused
+    view_angle = 0;   //otherwise the background is offset
+    background_x[1] = view_xview[0];  //the background tiles to the room, does not take into account view angle this fixes that
+    background_y[1] = view_yview[0];
+}
+else
+{
+    pause = 0;   //returns to unpaused state and changes background back to default
+    instance_activate_all();
+    background_visible[0] = true;
+    background_visible[1] = false;
+    background_visible[2] = false;
+    view_angle = -30;
+}
 </string>
           </argument>
         </arguments>
