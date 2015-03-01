@@ -27,6 +27,7 @@
       <object>objects\objControl</object>
     </objects>
     <object>objects\objWall</object>
+    <object>objects\objWall_Inv</object>
     <object>objects\objEnemy</object>
     <objects name="Player">
       <object>objects\objPlayer</object>
